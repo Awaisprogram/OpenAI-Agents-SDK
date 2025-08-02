@@ -5,7 +5,7 @@
 You can also integrate **programmatic checks** (often called “gates”) between steps to validate intermediate outputs and ensure the workflow remains on track.
 
 
-![Prompt Chaining](https://short-link.me/19PnA](https://miro.medium.com/v2/resize:fit:1400/0*Ud0bOqz747EKFRHO))
+![Prompt Chaining](https://short-link.me/19PnA](https://miro.medium.com/v2/resize:fit:1400/0*Ud0bOqz747EKFRHO)
 
 
 ---
