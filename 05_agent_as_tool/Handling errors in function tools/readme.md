@@ -14,3 +14,25 @@ This could be a `ModelBehaviorError` if the model produced invalid JSON, or a `U
 
 ### 🛠 Manual FunctionTool
 If you are manually creating a `FunctionTool` object, then you **must handle errors inside** the `on_invoke_tool` function.
+
+### In simple words
+
+Agar koi error hua, to default error message LLM ko diya jata hai.
+
+- **Example**: "An error occurred while calling the tool."
+
+```sh
+
+def my_custom_error(tool_call, error):
+    return "Oops! Something went wrong but I handled it gracefully."
+
+@function_tool(failure_error_function=my_custom_error)
+def my_tool(...):
+    ...
+
+```
+- Aap apna error message LLM ko bhej sakte ho.
+
+- Use-case: Agar aap user ko friendly message dena chahtay ho:
+- “Oops! Something went wrong but I handled it gracefully.”
+
