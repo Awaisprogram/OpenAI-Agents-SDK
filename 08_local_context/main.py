@@ -15,18 +15,20 @@ async def search() -> str:
     return [{"name": "Ali" , "profession" : "Math Tutor", "location" : "Karachi"},
             {"name": "Zaid" , "profession" : "Math Tutor", "location" : "Islamabad"}]
 
-
+@function_tool()
+async def location(Wrapper: RunContextWrapper[UserContext]) -> str:
+    return f"The user location is {Wrapper.context.location}"
 
 async def special_prompt(Wrapper: RunContextWrapper[UserContext], agent: Agent[UserContext]) -> str:
     # who is user?
     # which agent
     print(f"\nUser: {Wrapper.context},\n Agent: {agent.name}\n")
-    return f"You are a math expert. User: {Wrapper.context.username}, Agent: {agent.name}. Please assist with math-related queries.User location is {Wrapper.context.location}"
+    return f"You are a math expert. User: {Wrapper.context.username}, Agent: {agent.name}. Please assist with math-related queries. Get the location of user by using tool"
 
 math_agent = Agent(
     name="Genius", 
     instructions=special_prompt,  
-    tools=[search]
+    tools=[search,location]
 )
 
 async def call_agent():
@@ -35,7 +37,7 @@ async def call_agent():
 
     output = await Runner.run(
         starting_agent=math_agent, 
-        input="search for the best math tutor ",
+        input="search for the best math tutor in Islamabad",
         run_config= config,
         context=user_context
         )
