@@ -7,11 +7,23 @@
 
 4. Adds a RunHook to log every input/output pair."""
 
-from agents import Agent, Runner, RunContextWrapper, function_tool, InputGuardrailTripwireTriggered
+from agents import Agent, Runner, RunContextWrapper, function_tool, InputGuardrailTripwireTriggered, AgentHooks
 from model import config
 import asyncio
 from sympy import sympify
 from guardial import input_guard
+
+class Hooks(AgentHooks):
+    # 4. Adds a RunHook to log every input/output pair
+    
+    async def on_start(self, ctx:RunContextWrapper, agent:Agent):
+        print(f"Agent: {agent.name}")
+    
+    async def on_end(self, ctx:RunContextWrapper, agent:Agent, input:str, output:str):
+        print(f"[LOG] Agent: {agent.name}, Output: {output}")
+
+
+
 
 # 2 Uses a tool call to safely evaluate the expression
 @function_tool
@@ -29,7 +41,8 @@ async def main():
     name = "Math Agent",
     instructions = dynamic_instruction,
     tools = [math_tool],
-    input_guardrails = [input_guard]
+    input_guardrails = [input_guard],
+    hooks = Hooks()
     
   )
   
