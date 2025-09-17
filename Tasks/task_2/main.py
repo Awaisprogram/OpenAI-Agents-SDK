@@ -19,7 +19,7 @@ class Hooks(AgentHooks):
     async def on_start(self, ctx:RunContextWrapper, agent:Agent):
         print(f"Agent: {agent.name}")
     
-    async def on_end(self, ctx:RunContextWrapper, agent:Agent, input:str, output:str):
+    async def on_end(self, ctx:RunContextWrapper, agent:Agent, output:str):
         print(f"[LOG] Agent: {agent.name}, Output: {output}")
 
 
